@@ -14,33 +14,33 @@ import java.util.Scanner;
 public class Application implements Runnable {
 
     @Option(names = {"-c", "--code"}, description = "Tool code", required = true)
-    private String toolCode;
+    private static String toolCode;
 
     @Option(names = {"-r", "--rentalDays"}, description = "Number of rental days", required = true)
-    private int rentalDays;
+    private static int rentalDays;
 
     @Option(names = {"-d", "--discountPercent"}, description = "Discount percent", required = true)
-    private int discountPercent;
+    private static int discountPercent;
 
     @Option(names = {"-o", "--checkoutDate"}, description = "Checkout date (yyyy-MM-dd)", required = true)
-    private String checkoutDate;
+    private static String checkoutDate;
 
-    private static Map<String, Tool> tools = Util.createToolInventory();
+    private static Map<String, Tool> tools = Util.inventoryMetadata();
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("Enter tool code:");
-            String toolCode = scanner.nextLine().trim();
+            toolCode = scanner.nextLine().trim();
 
             System.out.println("Enter rental days:");
-            int rentalDays = Integer.parseInt(scanner.nextLine().trim());
+            rentalDays = Integer.parseInt(scanner.nextLine().trim());
 
             System.out.println("Enter discount percent:");
-            int discountPercent = Integer.parseInt(scanner.nextLine().trim());
+            discountPercent = Integer.parseInt(scanner.nextLine().trim());
 
             System.out.println("Enter checkout date (yyyy-MM-dd):");
-            String checkoutDate = scanner.nextLine().trim();
+            checkoutDate = scanner.nextLine().trim();
 
             String[] arguments = new String[] {
                     "-c", toolCode,

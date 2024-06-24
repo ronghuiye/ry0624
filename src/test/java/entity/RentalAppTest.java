@@ -15,7 +15,7 @@ public class RentalAppTest extends TestCase {
 
 	@Before
 	public void setUp() {
-		tools = Util.createToolInventory();
+		tools = Util.inventoryMetadata();
 	}
 
 	@Test
@@ -72,6 +72,25 @@ public class RentalAppTest extends TestCase {
 	}
 
 	@Test
+	public void testJAKDCheckout() {
+		Tool tool = tools.get("JAKD");
+		LocalDate checkoutDate = LocalDate.of(2015, 9, 3);
+		int rentalDays = 6;
+		int discountPercent = 0;
+
+		RentalAgreement rentalAgreement = new RentalAgreement(tool, checkoutDate, rentalDays, discountPercent);
+		rentalAgreement.printAgreement();
+
+		assertEquals(6, rentalAgreement.getRentalDays());
+		assertEquals("09/03/15", rentalAgreement.getCheckoutDate().format(DateTimeFormatter.ofPattern("MM/dd/yy")));
+		assertEquals("09/09/15", rentalAgreement.getDueDate().format(DateTimeFormatter.ofPattern("MM/dd/yy")));
+		assertEquals(3, rentalAgreement.getChargeDays());
+		assertEquals(8.97, rentalAgreement.getPreDiscountCharge(), 0.01);
+		assertEquals(0, rentalAgreement.getDiscountAmount(), 0.01);
+		assertEquals(8.97, rentalAgreement.getFinalCharge(), 0.01);
+	}
+
+	@Test
 	public void testJAKRCheckout9Days() {
 		Tool tool = tools.get("JAKR");
 		LocalDate checkoutDate = LocalDate.of(2015, 7, 2);
@@ -84,10 +103,10 @@ public class RentalAppTest extends TestCase {
 		assertEquals(9, rentalAgreement.getRentalDays());
 		assertEquals("07/02/15", rentalAgreement.getCheckoutDate().format(DateTimeFormatter.ofPattern("MM/dd/yy")));
 		assertEquals("07/11/15", rentalAgreement.getDueDate().format(DateTimeFormatter.ofPattern("MM/dd/yy")));
-		assertEquals(6, rentalAgreement.getChargeDays());
-		assertEquals(17.94, rentalAgreement.getPreDiscountCharge(), 0.01);
+		assertEquals(5, rentalAgreement.getChargeDays());
+		assertEquals(14.95, rentalAgreement.getPreDiscountCharge(), 0.01);
 		assertEquals(0.00, rentalAgreement.getDiscountAmount(), 0.01);
-		assertEquals(17.94, rentalAgreement.getFinalCharge(), 0.01);
+		assertEquals(14.95, rentalAgreement.getFinalCharge(), 0.01);
 	}
 
 	@Test
@@ -103,9 +122,9 @@ public class RentalAppTest extends TestCase {
 		assertEquals(4, rentalAgreement.getRentalDays());
 		assertEquals("07/02/20", rentalAgreement.getCheckoutDate().format(DateTimeFormatter.ofPattern("MM/dd/yy")));
 		assertEquals("07/06/20", rentalAgreement.getDueDate().format(DateTimeFormatter.ofPattern("MM/dd/yy")));
-		assertEquals(2, rentalAgreement.getChargeDays());
-		assertEquals(5.98, rentalAgreement.getPreDiscountCharge(), 0.01);
-		assertEquals(2.99, rentalAgreement.getDiscountAmount(), 0.01);
-		assertEquals(2.99, rentalAgreement.getFinalCharge(), 0.01);
+		assertEquals(1, rentalAgreement.getChargeDays());
+		assertEquals(2.99, rentalAgreement.getPreDiscountCharge(), 0.01);
+		assertEquals(1.50, rentalAgreement.getDiscountAmount(), 0.01);
+		assertEquals(1.49, rentalAgreement.getFinalCharge(), 0.01);
 	}
 }

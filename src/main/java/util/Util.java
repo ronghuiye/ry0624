@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Util {
-    public static Map<String, Tool> createToolInventory() {
+    public static Map<String, Tool> inventoryMetadata() {
         Map<String, Tool> tools = new HashMap<>();
         tools.put("CHNS", new Tool("CHNS", ToolType.CHAINSAW, "Stihl", 1.49, true, false, true));
         tools.put("LADW", new Tool("LADW", ToolType.LADDER, "Werner", 1.99, true, true, false));

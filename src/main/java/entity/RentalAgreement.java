@@ -36,11 +36,10 @@ public class RentalAgreement {
         for (int i = 0; i < rentalDays; i++) {
             if (isChargeableDay(currentDate)) {
                 chargeDays++;
-                preDiscountCharge += tool.getDailyCharge();
             }
             currentDate = currentDate.plusDays(1);
         }
-        preDiscountCharge = round(preDiscountCharge, 2);
+        preDiscountCharge = round(tool.getDailyCharge() * chargeDays, 2);
         discountAmount = round((discountPercent / 100.0) * preDiscountCharge, 2);
         finalCharge = round(preDiscountCharge - discountAmount, 2);
     }
